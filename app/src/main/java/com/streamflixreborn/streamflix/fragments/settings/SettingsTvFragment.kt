@@ -276,20 +276,10 @@ class SettingsTvFragment : LeanbackPreferenceFragmentCompat() {
         }
 
         findPreference<ListPreference>("p_doh_provider_url")?.apply {
-            value = UserPreferences.dohProviderUrl
-            summary = entry
-            setOnPreferenceChangeListener { preference, newValue ->
+            setOnPreferenceChangeListener { _, newValue ->
                 val newUrl = newValue as String
                 UserPreferences.dohProviderUrl = newUrl
                 DnsResolver.setDnsUrl(newUrl)
-                if (preference is ListPreference) {
-                    val index = preference.findIndexOfValue(newUrl)
-                    if (index >= 0 && preference.entries != null && index < preference.entries.size) {
-                        preference.summary = preference.entries[index]
-                    } else {
-                        preference.summary = null
-                    }
-                }
                 if (UserPreferences.currentProvider is StreamingCommunityProvider) {
                     (UserPreferences.currentProvider as StreamingCommunityProvider).rebuildService()
                     requireActivity().apply {
@@ -433,10 +423,6 @@ class SettingsTvFragment : LeanbackPreferenceFragmentCompat() {
             } else {
                 text = currentValue
             }
-        }
-
-        findPreference<ListPreference>("p_doh_provider_url")?.apply {
-            summary = entry
         }
 
         val networkSettingsCategory = findPreference<PreferenceCategory>("pc_network_settings")
