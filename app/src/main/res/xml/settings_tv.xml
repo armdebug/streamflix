@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
         android:key="pc_streamingcommunity_settings"
@@ -19,10 +20,10 @@
         <ListPreference
             android:key="p_doh_provider_url"
             android:title="@string/settings_doh_provider_title"
-            android:summary="%s"
             android:entries="@array/doh_provider_names"
             android:entryValues="@array/doh_provider_urls"
-            android:defaultValue="https://cloudflare-dns.com/dns-query" />
+            android:defaultValue=""
+            app:useSimpleSummaryProvider="true" />
     </PreferenceCategory>
 
     <PreferenceCategory
